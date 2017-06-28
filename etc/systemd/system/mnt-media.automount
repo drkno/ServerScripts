@@ -1,0 +1,10 @@
+[Unit]
+Description=Media Merge (overlayfs)
+AssertPathIsDirectory=/mnt/media
+After=rclone-download.service
+
+[Automount]
+Where=/mnt/media
+
+[Install]
+WantedBy=default.target

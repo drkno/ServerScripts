@@ -1,0 +1,13 @@
+[Unit]
+Description=Media Merge (overlayfs)
+AssertPathIsDirectory=/mnt/media
+After=rclone-download.service
+
+[Mount]
+What=overlay
+Where=/mnt/media
+Type=overlay
+Options=lowerdir=/mnt/download,upperdir=/mnt/upload,workdir=/var/local/work
+
+[Install]
+WantedBy=default.target

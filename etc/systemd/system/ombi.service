@@ -1,0 +1,12 @@
+[Unit]
+Description=Systemd script to run Ombi as a service
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/usr/bin/mono /opt/Ombi/Ombi.exe
+
+[Install]
+WantedBy=multi-user.target

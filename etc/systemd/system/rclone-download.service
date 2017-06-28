@@ -1,0 +1,14 @@
+[Unit]
+Description=Google Drive (rclone-download)
+AssertPathIsDirectory=/mnt/download
+After=plexdrive.service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/rclone mount --allow-other local-crypt: /mnt/download
+ExecStop=/bin/fusermount -u /mnt/download
+Restart=on-abort
+
+[Install]
+WantedBy=default.target
