@@ -1,0 +1,21 @@
+#!/bin/sh
+
+IPADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4;exit}' | cut -d/ -f1)
+
+printf "\n"
+printf " * Scripts:               https://github.com/mrkno/ServerScripts\n"
+PLEX_SERVICE=$(systemctl is-active plexmediaserver.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$PLEX_SERVICE] Plex:           http://$IPADDRESS\n"
+SONARR_SERVICE=$(systemctl is-active sonarr.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$SONARR_SERVICE] Sonarr:         http://$IPADDRESS:8989\n"
+RADARR_SERVICE=$(systemctl is-active radarr.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$RADARR_SERVICE] Radarr:         http://$IPADDRESS:7878\n"
+JACKETT_SERVICE=$(systemctl is-active jackett.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$JACKETT_SERVICE] Jackett:        http://$IPADDRESS:9117\n"
+OMBI_SERVICE=$(systemctl is-active ombi.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$OMBI_SERVICE] Ombi:           http://$IPADDRESS:3579\n"
+
+RCLONED_SERVICE=$(systemctl is-active rclone-download.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+PDRIVE_SERVICE=$(systemctl is-active plexdrive.service >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+OVERLAY_SERVICE=$(systemctl is-active mnt-media.automount >/dev/null 2>&1 && echo "\033[1;32m OK \033[0m" || echo "\033[0;31mDOWN\033[0m")
+printf " * [$PDRIVE_SERVICE] Plex Drive   [$RCLONED_SERVICE] rclone   [$OVERLAY_SERVICE] Overlay\n"
