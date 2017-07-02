@@ -19,3 +19,5 @@ folder=$(basename $sonarr_episodefile_path)
 if [ -z "$(ls -A $folder)" ]; then
 	rm -rf $folder || true
 fi
+
+/opt/download_management.sh transmission:3T1Pe0Me0C21r91V &

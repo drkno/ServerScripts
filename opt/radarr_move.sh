@@ -15,5 +15,7 @@ subdir_path=${radarr_moviefile_path#/mnt/media/}
 echo rclone move \"$radarr_moviefile_path\" \"remote-crypt:$subdir_path\" >> ~/test.txt
 rclone move "$radarr_moviefile_path" "remote-crypt:$subdir_path"
 
-folder=$(basename $radarr_moviefile_path)
+folder=$(dirname $radarr_moviefile_path)
 rm -rf $folder || true
+
+/opt/download_management.sh transmission:3T1Pe0Me0C21r91V &

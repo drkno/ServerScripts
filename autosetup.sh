@@ -1,5 +1,9 @@
 #!/bin/bash
 
+printf "\033[1;93m  _____         _______ _     _\n |_____] |      |______  \\___/ \n |       |_____ |______ _/   \\_\n Copyright (c) Matthew Knox 2017\n\n\033[0m"
+echo "This script is avalible under the MIT license. It is incomplete and will fail."
+echo "Good luck."
+
 mkdir -p /mnt/download
 mkdir -p /mnt/media
 mkdir -p /mnt/plexdrive
@@ -14,9 +18,13 @@ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 
 apt-get update
-apt-get install install transmission-cli transmission-common transmission-daemon nzbdrone unzip mongodb-org
+apt-get install install transmission-cli transmission-common transmission-daemon nzbdrone unzip mongodb-org lighttpd
 
+rm -rf /etc/update-motd.d/*
 rsync --exclude 'autosetup.sh' --exclude 'README.md' -a ./ /
+
+ln -s /opt/status.sh /usr/bin/status
+ln -s /opt/manual_upload.sh /usr/bin/manual_upload
 
 wget $(curl -s https://api.github.com/repos/Radarr/Radarr/releases | grep browser_download_url | grep linux -m 1 | cut -d '"' -f 4)
 mkdir -p /opt/Radarr
@@ -40,6 +48,8 @@ mv plexdrive* /usr/bin/plexdrive
 chmod +x /usr/bin/plexdrive
 
 bash -c "$(wget -qO - https://raw.githubusercontent.com/mrworf/plexupdate/master/extras/installer.sh)"
+
+cp /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
 
 systemctl daemon-reload
 
